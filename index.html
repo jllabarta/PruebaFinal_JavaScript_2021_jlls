@@ -5,7 +5,7 @@
     <!--The viewport meta tag is used to improve the presentation and behavior of the samples
       on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
-    <title>Prueba de unidad 5</title>
+    <title>PruebaFinal_API_JS_JLLS</title>
 
     <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.35/esri/css/esri.css">
@@ -15,15 +15,146 @@
     <script src="https://js.arcgis.com/3.35/"></script>
 
     <style>
-       #search {
-            display: block;
-            position: absolute;
-            z-index: 2;
-            top: 10px;
-            right: 10px;
-          }
+      #divSearch {
+        display: block;
+        position: absolute;
+        z-index: 2;
+        top: 10px;
+        left: 70px;}
+      #basemapGallery {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 50;}
+      #MapaPeque {
+        position: absolute;
+        bottom: 120px;
+        left: 30px;
+        z-index: 50;
+        border-color: black;
+        border-style: solid;
+        border:thick}
     </style>
     <script>
+
+    var map;
+    var tb;
+    require(["esri/map",
+        "esri/layers/ArcGISDynamicMapServiceLayer",
+        "esri/geometry/Extent",
+        "esri/dijit/Scalebar",
+        "esri/dijit/Legend",
+        "esri/dijit/BasemapGallery",
+        "esri/layers/FeatureLayer",
+        "esri/dijit/Search",
+        "esri/dijit/OverviewMap",
+        "esri/toolbars/draw",
+        "esri/graphic",
+
+        "dojo/on",
+
+        "dijit/layout/TabContainer",
+        "dijit/layout/ContentPane",
+        "dijit/layout/BorderContainer",
+        "dojo/domReady!"],
+        function(
+          Map, ArcGISDynamicMapServiceLayer, Extent, Scalebar, Legend, BasemapGallery, FeatureLayer,  Search, OverviewMap,
+          Draw, Graphic, on
+        ) {
+
+
+        on(dojo.byId("pintaYQuery"),"click",fPintaYQuery);
+        on(dojo.byId("progButtonNode"),"click",fQueryEstados);
+
+        function fPintaYQuery(){
+          var tbDraw = new Draw(mapMain);
+          tbDraw.on("draw-complete",addToMap);
+          tbDraw.activate(Draw.POLYGON);
+        }
+        function addToMap(evt) {
+          var geometryInput = evt.geometry;
+          var tbDrawSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 255, 0]), 2), new Color([255, 255, 0, 0.2]));
+          mapMain.graphics.clear();
+          var graphicPolygon = new Graphic(geometryInput, tbDrawSymbol);
+          mapMain.graphics.add(graphicPolygon);
+          selectCities(geometryInput);
+        }      
+        function selectCities(geometryInput) {
+          var symbolSelected = new SimpleMarkerSymbol({
+            "type": "esriSMS",
+            "style": "esriSMSCircle",
+            "color": [255, 115, 0, 128],
+            "size": 6,
+            "outline": {"color": [255, 0, 0, 214],
+                    "width": 1}
+        });
+        lyrCities.setSelectionSymbol(symbolSelected);
+        alert("Evento del botón Ir a estado");
+        }
+        function fQueryEstados(){
+         alert("Evento del botón Seleccionar ciudades");
+        }
+        var extentInitial = new Extent({
+        "xmin": -11535191.501121324,
+        "ymin": 3286084.8695277404,
+        "xmax": -7350110.356180864,
+        "ymax": 6548702.8609162215,
+        "spatialReference": { "wkid": 102100 }
+      });
+        
+      var mapMain = new Map("map", {
+        basemap: "topo",
+        extent: extentInitial
+      });
+      var lyrUSA = new ArcGISDynamicMapServiceLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer", {opacity: 0.25});
+        lyrUSA.setVisibleLayers([1, 2, 3]);
+      var lyrCities = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
+    
+      mapMain.on("load", function (evt) {
+        mapMain.resize();
+        mapMain.reposition();
+        mapMain.addLayer(lyrUSA);
+        mapMain.addLayer(lyrCities);
+      });
+      var dijiScalebar = new Scalebar({
+        map: mapMain,
+        scalebarUnit: "dual",
+        attachTo: "bottom-center"
+      });
+      var Leyenda = new Legend({
+        map: mapMain,
+        arrangement: Legend.ALIGN_LEFT
+      }, "legendDiv");
+      Leyenda.startup();
+
+      var basemapGallery = new BasemapGallery({
+        showArcGISBasemaps: true,
+        map: mapMain
+      }, "basemapGallery");
+      basemapGallery.startup();
+
+      var dijitSearch = new Search({
+                map: mapMain,
+                autoComplete: true,
+            }, "divSearch");
+      dijitSearch.startup();
+      
+      var overviewMapDijit = new OverviewMap({
+        map: mapMain,
+        attachTo: "bottom-right",
+        
+        height: 100,
+        width: 120,
+
+        },"MapaPeque");
+        overviewMapDijit.startup();
+
+      
+
+      });
+
+
+
     </script>
 
   </head>
@@ -38,7 +169,7 @@
            data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'">
 
         Master GIS ESRI España
-       <div id="subheader">JOSE LUIS LABARTA SAUCO</div>
+       <div id="subheader">J.L. LABARTA SAUCO</div>
 
       </div>
       <div data-dojo-type="dijit.layout.ContentPane" id="leftPane" data-dojo-props="region:'left'">
@@ -57,6 +188,17 @@
       </div>
 
       <div id="map" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'center'">
+        <div id="divSearch"></div>
+        <div id="MapaPeque"></div>
+        <div style="position:absolute; right:20px; top:10px; z-Index:999;">
+          <div data-dojo-type="dijit/TitlePane"
+               data-dojo-props="title:'Switch Basemap', closable:false, open:false">
+              <div data-dojo-type="dijit/layout/ContentPane" style="width:380px; height:280px; overflow:auto;">
+                  <div id="basemapGallery"></div>                  
+              </div>            
+          </div>
+        
+        </div>
 
       </div>
 
