@@ -8,7 +8,7 @@
        #map {
        margin: 5px;
         border:solid 4px #224a54;
-        -moz-border-radius: 4px;
+        border-radius: 4px;
         
       }
       #map_root{
@@ -21,6 +21,7 @@
         border: solid 4px #224a54;
         color:white; font-size:18pt; 
         text-align:left; font-weight:bold; height:70px;
+        border-radius: 4px;
       }
       #subheader {
         font-size:small;
@@ -40,6 +41,7 @@
         color:#3f3f3f;
         border: solid 2px #224a54;
         width:20%;
+        border-radius: 4px;
      }
 
       #footer {
@@ -47,6 +49,7 @@
         border: solid 2px #224a54;
         background-color:#ecefe4;color:#3f3f3f;
        font-size:10pt; text-align:center; height:40px;
+       border-radius: 4px;
       }
       .dijitTabInnerDiv{
         background-color:#ecefe4;
