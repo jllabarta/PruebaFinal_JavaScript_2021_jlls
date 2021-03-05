@@ -101,30 +101,9 @@
         });
         // Información de los estados de USA
         var template2=new PopupTemplate({
-          title: "Estado seleccionado: {state_name}",
-          fieldInfos: [{
-            fieldName: "pop2000",
-            label: "Población: ",
-            format: {
-              digitSeparator: true,
-              places: 0
-              }
-            },{
-            fieldName: "pop00_sqmi",
-              label: "Población por milla: ",
-              format: {
-                digitSeparator: true,
-                places: 0
-              }
-            }, {
-            fieldName: "st_area",
-              label: "Superficie: ",
-             format: {
-                digitSeparator: true,
-                places: 0
-              }
-            }]
-    });
+                  title: "Nombre: {STATE_NAME}",
+                  description: "Población: {POP2000} habitantes. <br> Población por milla: {POP00_SQMI} <br> Área: {st_area(shape)} ",   
+            });
   
     
       /*****************************************************************************************
