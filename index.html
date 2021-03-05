@@ -21,25 +21,25 @@
     var mapMain;
     var tb;
     
-    require(["esri/map",
-        "esri/geometry/webMercatorUtils",
-        "esri/layers/ArcGISDynamicMapServiceLayer",
-        "esri/layers/FeatureLayer",
-        "esri/geometry/Extent",
-        "esri/toolbars/draw",
-        "esri/graphic",
-        "esri/tasks/query",
+    require(["esri/map",                            // funcionalidad de mapa
+        "esri/geometry/webMercatorUtils",           // funcionalidad para coordenadas
+        "esri/layers/ArcGISDynamicMapServiceLayer", // funcionalidad para servicio Arcgis
+        "esri/layers/FeatureLayer",                 // funcionalidad para añadir Feature Layers
+        "esri/geometry/Extent",                     // funcionalidad para la extensión
+        "esri/toolbars/draw",                       // funcionalidad para el dibujo
+        "esri/graphic",                             // funionalidad para pasar a géfico el dibujo
+        "esri/tasks/query",                         // funcionalidad de consultas
 
-        "esri/dijit/Scalebar",
-        "esri/dijit/Legend",
-        "esri/dijit/BasemapGallery",
-        "esri/dijit/Search",
-        "esri/dijit/OverviewMap",
-        "esri/dijit/PopupTemplate",
-        "esri/dijit/HomeButton",
+        "esri/dijit/Scalebar",                      // Widget de escala
+        "esri/dijit/Legend",                        // Widget de leyenda
+        "esri/dijit/BasemapGallery",                // Widget de mapas base
+        "esri/dijit/Search",                        // Widget de búsqueda
+        "esri/dijit/OverviewMap",                   // Widget de Mapa pequeño (guia)
+        "esri/dijit/PopupTemplate",                 // Widget de infomación de capas
+        "esri/dijit/HomeButton",                    // Widget de botón de extensión incial          
 
-        "esri/symbols/SimpleFillSymbol",
-        "esri/symbols/SimpleLineSymbol",
+        "esri/symbols/SimpleFillSymbol",               // simbologia
+        "esri/symbols/SimpleLineSymbol",            
         "esri/symbols/SimpleMarkerSymbol",
         "esri/renderers/SimpleRenderer",
                 
@@ -48,17 +48,17 @@
         "dojo/on",
         "dojo/dom",        
 
-        "dojo/store/Memory",
+        "dojo/store/Memory",                            // Memoria vistual
         "dojo/date/locale",
 
-        "dojo/_base/Color",
+        "dojo/_base/Color",                             // Colores
         "dojo/_base/declare",
-        "dojo/_base/array",
+        "dojo/_base/array",                             // matrices/ arrays
 
         "dgrid/OnDemandGrid",
-        "dgrid/Selection",
+        "dgrid/Selection",                              // selecciones
 
-        "dijit/form/ComboBox",
+        "dijit/form/ComboBox",                          // Combobox/caja de selección
         "dijit/layout/TabContainer",
         "dijit/layout/ContentPane",
         "dijit/layout/BorderContainer",
@@ -90,13 +90,16 @@
       });
       /*****************************************************************************************
       *******************    PASO 08: Creación de PopupTemplate    *****************************
+
       ******************************************************************************************/   
         //Creación de widget PopupTemplate, he definido en las ventas de información una concatenación 
         //de la información más relevante sobre las ciudades de USA. 
+        //Información de las ciudades de Estados UNidos
         var template1=new PopupTemplate({
           title: "Información sobre la ciudad "+"{areaname}"+", "+"{st}",
           description: "{areaname}"+", "+"{st}"+ ": con una población de "+"{pop2000}"+ " personas."
         });
+        // Información de los estados de USA
         var template2=new PopupTemplate({
           title: "Estado seleccionado: {state_name}",
           fieldInfos: [{
@@ -360,50 +363,35 @@
      
 
     });
-
-
-
-    </script>
+  </script>
 
   </head>
-
   <body class="claro">
     <div id="mainWindow"
          data-dojo-type="dijit.layout.BorderContainer"
          data-dojo-props="design:'headline', gutters:false"
          style="width:100%; height:100%;">
-
       <div id="header"
            data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'">
-
         Master GIS ESRI España
        <div id="subheader">JOSE LUIS LABARTA SAUCO</div>
-
       </div>
       <div data-dojo-type="dijit.layout.ContentPane" id="leftPane" data-dojo-props="region:'left'">
         <div data-dojo-type="dijit.layout.TabContainer">
-
           <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Leyenda', selected:true">
             <div id="legendDiv"></div>
-          </div>
-          
-          <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Tareas'" >
-            
+          </div>          
+          <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Tareas'" >            
             <button class="btn" id="pintaYQuery" type="button"></button>
             <button class="btn2" id="OffpintaYQuery" type="button"></button>            
-            <div class="divGrid" id="divGrid"></div>
-            
+            <div class="divGrid" id="divGrid"></div>            
           </div>
-         
-
         </div>
       </div>
-
       <div id="map" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'center'">
         <div id="HomeButton"></div>
         <div class="divSearch" id="divSearch"></div>
-        <div class="MapaPeque" id="MapaPeque"></div>
-         
+        <div class="MapaPeque" id="MapaPeque"></div>         
         <div style="position:absolute; right:20px; top: 27px; z-Index:999;">
           <div data-dojo-type="dijit/TitlePane"
                data-dojo-props="title:'Switch Basemap', closable:false, open:false">
@@ -411,21 +399,13 @@
                 <div id="basemapGallery"></div>
               </div>
           </div>
+        </div>
       </div>
-
-      </div>
-
       <div id="footer" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'bottom'">
-
         <label for="dtb">Introduzca el nombre de un estado:</label> <input class="Combobox" id="dtb" data-dojo-type="dijit/form/ComboBox"/>
         <button class="btn3" id="progButtonNode" type="button"></button> 
-        <div class="Coordenadas" id="Coordenadas"></div>
-        
-        
-        
+        <div class="Coordenadas" id="Coordenadas"></div>      
       </div>
-
     </div>
   </body>
-
 </html>
