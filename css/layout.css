@@ -2,7 +2,8 @@
         height: 100%; width: 100%; margin: 0; 
       } 
       body{
-        background-color:white; overflow:hidden; 
+        background: linear-gradient(to bottom, rgb(126 , 126, 126), white); 
+        overflow:hidden; 
         font-family: "Trebuchet MS"; 
       }
        #map {
@@ -37,11 +38,27 @@
       #leftPane{
         margin: 5px;
         padding:2px;
-        background-color:white;
+        background-color: rgb(126,126,126);;
         color:#3f3f3f;
         border: solid 2px #224a54;
         width:20%;
         border-radius: 4px;
+     }
+     .divGrid {
+       position: relative;
+       top: 15px;
+       color: #3f3f3f;
+       border-radius: 4px;
+       border: #224a54;
+       font-size:small;
+       background-color: rgb(192, 192, 192);
+
+     }
+     .Coordenadas{
+       color:rgb(128, 98, 98);
+       font-size:medium;
+       position: relative;
+       
      }
 
       #footer {
@@ -52,9 +69,135 @@
        border-radius: 4px;
       }
       .dijitTabInnerDiv{
-        background-color:#ecefe4;
+        background-color:#cecece;
       }
       #tabs{
         padding:5px;
       }
+      #divSearch {
+        
+        display: block;
+        position: absolute;
+        z-index: 2;
+        top: 27px;
+        left: 70px;}
+      #basemapGallery {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 50;
+      }
+      #MapaPeque {
+        position: absolute;
+        bottom: 120px;
+        left: 30px;
+        z-index: 50;
+        border: solid 2px #224a54;
+        border-color: black;
+        border-style: solid;
+        border:thick,
+        }
+      #HomeButton {
+          position: absolute;
+          top: 95px;
+          left: 27px;
+          z-index: 50;}
+
+      
+      .btn {
+        padding: 0.6rem 3.75rem;
+        background: linear-gradient(to bottom, rgb(126 , 126, 126), white); 
+        border: 0.1 rem solid rgb(150,150,150);
+        cursor: pointer;
+        position: relative;
+        top:0.1rem;
+        left:0rem;
+        border-radius: 0.3rem;
+        overflow: hidden;
+      }
+      .btn::before{
+        content: 'Selección';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 0.5rem;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 0.3rem;
+        font-weight: 700;
+        text-shadow: .1rem .1rem .1rem rgb(255, 255, 255);
+        transition: .25s ease;
+      }
+      .btn:hover::before{
+        transform: translate(-50%,-50%) scale(3);
+        opacity: (0);
+      }
+      
+      
+      .btn2 {
+        padding: 0.6rem 3.75rem;
+        top:0.1rem;
+        left:0.15rem ;
+        background: linear-gradient(to bottom, rgb(126 , 126, 126), white); 
+        border: 0.1 rem solid rgb(150,150,150);
+        cursor: pointer;
+        position:relative;
+        border-radius: 0.3rem;
+        overflow: hidden;
+      }
+      .btn2::before{
+        content: 'Limpiar';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 0.5rem;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 0.3rem;
+        font-weight: 700;
+        text-shadow: .1rem .1rem .1rem rgb(255, 255, 255);
+        transition: .25s ease;
+      }
+      
+      .btn2:hover::before{
+        transform: translate(-50%,-50%) scale(3);
+        opacity: (0);
+      }
      
+      .btn3 {
+        padding: 0.60rem 3.75rem;
+        background: linear-gradient(to bottom, rgb(126 , 126, 126), white); 
+        border: 0.1 rem solid rgb(150,150,150);
+        cursor: pointer;
+        position:relative;
+        border-radius: 0.3rem;
+        overflow: hidden;
+        top:-0.25rem;
+        left:0rem;
+      }
+      .btn3::before{content: 'selección';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 0.5rem;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 0.3rem;
+        font-weight: 700;
+        text-shadow: .1rem .1rem .1rem rgb(255, 255, 255);
+        transition: .25s ease;
+      }
+      .btn3:hover::before{
+        transform: translate(-50%,-50%) scale(3);
+         opacity: (0);
+        }
+      .Combobox{
+        border-radius: 4px;
+        font-size: small;
+        ;
+
+      }
+        

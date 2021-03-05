@@ -1,0 +1,54 @@
+*********************************************************************************************
+******************IMPLEMENTAR coordenadas en txt al pie de la página ************************
+
+require(["esri/map",
+        "esri/geometry/webMercatorUtils", .....
+function(map, webMercatorUtils.......)
+
+mapMain.on("load", function (evt) {
+        mapMain.resize();
+        mapMain.reposition();
+        mapMain.addLayer(lyrUSA);
+        mapMain.addLayer(lyrCities);
+        mapMain.addLayer(lyrStates);
+        mapMain.on("mouse-move", showCoordinates); <---------esto es lo que se añade, para que cuando este en el cuadro mapa busque la funcion
+        mapMain.on("mouse-drag", showCoordinates); <---------esto es lo que se añade, para que cuando no este no haga nada
+      });
+      function showCoordinates(evt) {
+          var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+          dom.byId("Coordenadas").innerHTML = "Latitud: "+ mp.y.toFixed(3)+ ", Longitud: "+mp.x.toFixed(3);
+        }
+
+<div id="Coordenadas"></div> 
+
+********************************************************************************************
+**********IMPLEMENTAR BUSQUEDA DE ESTADOS, para no equivocarse escribiendo...***************
+
+<script>
+require["dojo/store/Memory","dijit/form/ComboBox"]
+function(Memory, ComboBox)
+
+var StateStore=new Memory ({
+            data: [{name:"Alabama"},{name:"Alaska"},{name:"Arizona"},{name:"Arkansas"},{name:"California"},{name:"Colorado"},
+            {name:"Connecticut"},{name:"Delaware"},{name:"District of Columbia"},{name:"Florida"},{name:"Georgia"},{name:"Hawaii"},
+            {name:"Idaho"},{name:"Illinois"},{name:"Indiana"},{name:"Iowa"},{name:"Kansas"},{name:"Kentucky"},{name:"Louisiana"},
+            {name:"Maine"},{name:"Maryland"},{name:"Massachusetts"},{name:"Michigan"},{name:"Minnesota"},{name:"Mississippi"},
+            {name:"Missouri"},{name:"Montana"},{name:"Nebraska"},{name:"Nevada"},{name:"New Hampshire"},{name:"New Jersey"},
+            {name:"New Mexico"},{name:"New York"},{name:"North Carolina"},{name:"North Dakota"},{name:"Ohio"},{name:"Oklahoma"},
+            {name:"Oregon"},{name:"Pennsylvania"},{name:"Rhode Island"},{name:"South Carolina"},{name:"South Dakota"},{name:"Tennessee"},
+            {name:"Texas"},{name:"Utah"},{name:"Vermont"},{name:"Virginia"},{name:"Washington"},{name:"West Virginia"},{name:"Wisconsin"},
+            {name:"Wyoming"}]
+
+var comboBox = new ComboBox({
+          id: "dtb",
+          name: "state",
+          value: "Washington",
+          store: StateStore,
+          autoComplete: true,
+          searchAttr: "name"
+        }, "dtb");
+</script>
+
+/* reemplazar el textbox="dtb" por lo siguiente:
+<input id="dtb" data-dojo-type="dijit/form/ComboBox"/>
+
